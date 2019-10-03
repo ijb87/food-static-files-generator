@@ -21,6 +21,8 @@ import {
   getOnlyFiles,
 } from './utils';
 
+import _ from 'lodash'; // importating whole lib temporarily
+
 /**
  * Write in file
  * @param {String} path
@@ -86,6 +88,8 @@ const read = (absolutePath) => new Promise((resolve, reject) => {
  * @param {var} flag
  * @param {Function} callback
  * */
+
+
 // @TODO save got 4 attributes and most of them are about directory/files...
 // there should be another way
 const save = (folderNamePath, file, fileData, flag) => {
@@ -94,6 +98,26 @@ const save = (folderNamePath, file, fileData, flag) => {
   }
   const fileDataLength = fileData.length;
   let success = true;
+
+
+  // lodash start of replacement for loop
+
+  var array = _.range(0, fileDataLength, 1);
+  _.forEach(array, function (file, fileName, flag, elementPath, fileData) {
+    fileName = (file, fileData, flag);
+    elementPath = `${folderNamePath}/${fileName}`;
+    const result = write(elementPath, fileData);
+
+    if (!result) {
+      console.log(
+        `${fileName} is the filename, ` + `${elementPath} is the elementPath ` + 'and success is false'
+      );
+    }
+
+    success = success && result;
+  });
+
+  // end of replacement for loop
 
   // @TODO replace with lodash
   for (let i = 0; i < fileDataLength && success; i += 1) {
