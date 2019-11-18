@@ -24,7 +24,7 @@ import {
   getOnlyFiles,
 } from './utils';
 
-import _ from 'lodash'; // importating whole lib temporarily
+import _ from 'lodash'; // importing whole lib temporarily
 
 /**
  * Write in file
